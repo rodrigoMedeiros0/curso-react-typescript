@@ -1,7 +1,15 @@
+import { Link } from "react-router-dom"
 
 
 export const Dashboard = () => {
     return (
-        <p>Dashboard 123</p>
+        <div>
+            <h2>Dashboard</h2>
+
+            <Link to="/entrar">
+                Login
+            </Link>
+        </div>
+
     )
 }
