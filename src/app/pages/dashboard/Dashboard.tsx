@@ -1,19 +1,49 @@
-import { useRef } from "react";
-import { Link } from "react-router-dom";
+import { useCallback, useState } from "react";
+
+interface ITarefa {
+   id: number;
+   title: string;
+   isCompleted: boolean;
+}
 
 export const Dashboard = () => {
-  const counterRef = useRef(0);
+
+  const [lista, setLista] = useState<ITarefa[]>([]);
+
+  const handleInputKeyDown: React.KeyboardEventHandler<HTMLInputElement> = useCallback((e) => {
+    if (e.key === 'Enter'){
+      // if (e.currentTarget.value.trim().length === 0) return;
+
+      // const value = e.currentTarget.value;
+
+      // e.currentTarget.value = '';
+
+      // setLista((prev) => {
+      //   if (prev.some((listItem) => listItem.title === value)) return prev;
+
+      //   return [...prev, {
+      //     title: value,
+      //     isSelected: false,
+      //   }];
+      // });
+    }
+  }, []);
 
   return (
     <div>
-      <h2>Dashboard</h2>
+      <h2>Lista</h2>
 
-      <p>Contador: {counterRef.current}</p>
+      <input onKeyDown={handleInputKeyDown}/>
 
-      <button onClick={()=> counterRef.current++}>Somar</button>
-      <button onClick={()=> console.log(counterRef.current)}>Console Log</button>
+      <ul>
+        {lista.map((lisItem) => {
+          return <li key={lisItem.id}>
+            <input type="checkbox" />
+            {lisItem.title}
+            </li>;
+        })}
+      </ul>
 
-      <Link to="/entrar">Login</Link>
     </div>
   );
 };
